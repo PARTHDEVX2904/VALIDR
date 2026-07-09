@@ -250,8 +250,8 @@ export default function Hero() {
 
           <p style={{
             fontFamily: "'Space Mono', monospace",
-            fontSize: '14px',
-            color: '#666666',
+            fontSize: '15px',
+            color: 'rgba(255,255,255,0.65)',
             lineHeight: 1.7,
             maxWidth: '420px',
             margin: '0 auto',
@@ -262,24 +262,27 @@ export default function Hero() {
 
           {/* Terminal preview */}
           <div style={{
-            background: 'rgba(255,255,255,0.04)',
-            border: '0.5px solid rgba(255,255,255,0.1)',
-            borderRadius: '8px',
-            padding: '12px 14px',
-            marginTop: '20px',
-            marginBottom: '20px',
-            maxWidth: '360px',
+            background: '#0a0a0a',
+            border: '1px solid rgba(255,255,255,0.2)',
+            borderRadius: '10px',
+            padding: '16px 20px',
+            marginBottom: '24px',
+            maxWidth: '380px',
             marginLeft: 'auto',
             marginRight: 'auto',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            position: 'relative',
+            zIndex: 20,
             textAlign: 'left',
             ...fadeUp(0.35),
           }}>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', color: '#444', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px' }}>
               LIVE SCAN PREVIEW
             </p>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', color: '#555', marginBottom: '4px' }}>&gt; scanning devpost...</p>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', color: '#555', marginBottom: '4px' }}>&gt; 47 similar projects found</p>
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', color: '#ffffff' }}>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', color: 'rgba(255,255,255,0.35)', lineHeight: '1.8', marginBottom: '0' }}>&gt; scanning devpost...</p>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', color: 'rgba(255,255,255,0.35)', lineHeight: '1.8', marginBottom: '0' }}>&gt; 47 similar projects found</p>
+            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: '13px', color: '#ffffff', fontWeight: '700', lineHeight: '1.8' }}>
               &gt; originality score: 23/100<span style={{ animation: 'blink 1s step-end infinite' }}>_</span>
             </p>
           </div>
@@ -309,18 +312,18 @@ export default function Hero() {
             ...fadeUp(0.6),
           }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '16px', fontWeight: 700, color: '#ffffff' }}>50k+</span>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', color: '#666' }}>projects indexed</span>
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '18px', fontWeight: 700, color: '#ffffff' }}>50k+</span>
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', color: 'rgba(255,255,255,0.45)' }}>projects indexed</span>
             </div>
-            <div style={{ width: '0.5px', height: '28px', background: 'rgba(255,255,255,0.1)' }} />
+            <div style={{ width: '1px', height: '32px', background: 'rgba(255,255,255,0.12)' }} />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '16px', fontWeight: 700, color: '#ffffff' }}>3</span>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', color: '#666' }}>data sources</span>
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '18px', fontWeight: 700, color: '#ffffff' }}>3</span>
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', color: 'rgba(255,255,255,0.45)' }}>data sources</span>
             </div>
-            <div style={{ width: '0.5px', height: '28px', background: 'rgba(255,255,255,0.1)' }} />
+            <div style={{ width: '1px', height: '32px', background: 'rgba(255,255,255,0.12)' }} />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '16px', fontWeight: 700, color: '#ffffff' }}>8s</span>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '10px', color: '#666' }}>avg validation</span>
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '18px', fontWeight: 700, color: '#ffffff' }}>8s</span>
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', color: 'rgba(255,255,255,0.45)' }}>avg validation</span>
             </div>
           </div>
 
@@ -357,7 +360,7 @@ export default function Hero() {
             <p style={{
               fontFamily: "'Space Mono', monospace",
               fontSize: '13px',
-              color: '#3a3a3a',
+              color: 'rgba(255,255,255,0.6)',
               lineHeight: 1.7,
             }}>
               The full analysis runs end to end in 8 seconds.
@@ -393,7 +396,7 @@ export default function Hero() {
                     width: '40px',
                     height: '40px',
                     borderRadius: '50%',
-                    border: `1px solid ${step.live ? 'rgba(127,224,138,0.15)' : '#1a1a1a'}`,
+                    border: `1px solid ${step.live ? 'rgba(127,224,138,0.15)' : 'rgba(255,255,255,0.3)'}`,
                     background: '#060606',
                     display: 'flex',
                     alignItems: 'center',
@@ -413,7 +416,7 @@ export default function Hero() {
                       fontFamily: "'Space Mono', monospace",
                       fontSize: '10px',
                       fontWeight: 700,
-                      color: step.live ? '#7fe08a' : '#2e2e2e',
+                      color: step.live ? '#7fe08a' : '#ffffff',
                       letterSpacing: '0.04em',
                       position: 'relative',
                     }}>
@@ -426,7 +429,7 @@ export default function Hero() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px', flexWrap: 'wrap' }}>
                       <h3 style={{
                         fontFamily: "'Space Mono', monospace",
-                        fontSize: '14px',
+                        fontSize: '15px',
                         fontWeight: 700,
                         color: '#ffffff',
                         letterSpacing: '-0.01em',
@@ -463,8 +466,8 @@ export default function Hero() {
                     <p style={{
                       fontFamily: "'Space Mono', monospace",
                       fontSize: '12px',
-                      color: '#4a4a4a',
-                      lineHeight: 1.8,
+                      color: 'rgba(255,255,255,0.55)',
+                      lineHeight: 1.7,
                       maxWidth: '360px',
                     }}>
                       {step.desc}
@@ -475,9 +478,10 @@ export default function Hero() {
                           <span key={src} style={{
                             fontFamily: "'Space Mono', monospace",
                             fontSize: '10px',
-                            color: '#2e2e2e',
+                            color: 'rgba(255,255,255,0.5)',
                             padding: '3px 10px',
-                            border: '1px solid #161616',
+                            border: '0.5px solid rgba(255,255,255,0.2)',
+                            background: 'transparent',
                             borderRadius: '4px',
                           }}>
                             {src}
@@ -494,8 +498,8 @@ export default function Hero() {
             <div>
               <div style={{ ...stepFade(0.2) }}>
                 <div style={{
-                  background: '#060606',
-                  border: '1px solid #161616',
+                  background: '#111111',
+                  border: '0.5px solid rgba(255,255,255,0.12)',
                   borderRadius: '12px',
                   overflow: 'hidden',
                   fontFamily: "'Space Mono', monospace",
@@ -514,7 +518,7 @@ export default function Hero() {
                         <div key={d} style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#161616' }} />
                       ))}
                     </div>
-                    <span style={{ fontSize: '9px', color: '#222222', letterSpacing: '0.12em' }}>VALIDR — RESULT</span>
+                    <span style={{ fontSize: '9px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.12em' }}>VALIDR — RESULT</span>
                     <div style={{ width: '42px' }} />
                   </div>
 
@@ -523,7 +527,7 @@ export default function Hero() {
 
                     {/* Score row */}
                     <div style={{ marginBottom: '20px' }}>
-                      <p style={{ fontSize: '9px', color: '#2a2a2a', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '10px' }}>
+                      <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '10px' }}>
                         ORIGINALITY SCORE
                       </p>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
@@ -535,11 +539,11 @@ export default function Hero() {
                             borderRadius: '2px',
                           }} />
                         </div>
-                        <span style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', minWidth: '54px', textAlign: 'right' }}>
+                        <span style={{ fontSize: '22px', fontWeight: 700, color: '#ffffff', minWidth: '54px', textAlign: 'right' }}>
                           84 / 100
                         </span>
                       </div>
-                      <p style={{ fontSize: '10px', color: '#7fe08a', marginTop: '7px' }}>
+                      <p style={{ fontSize: '12px', color: '#7fe08a', marginTop: '7px' }}>
                         High originality · Low saturation
                       </p>
                     </div>
@@ -548,7 +552,7 @@ export default function Hero() {
 
                     {/* Similar projects */}
                     <div style={{ marginBottom: '18px' }}>
-                      <p style={{ fontSize: '9px', color: '#2a2a2a', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '10px' }}>
+                      <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '10px' }}>
                         SIMILAR PROJECTS FOUND: 2
                       </p>
                       {[
@@ -561,8 +565,8 @@ export default function Hero() {
                           alignItems: 'center',
                           marginBottom: '5px',
                         }}>
-                          <span style={{ fontSize: '11px', color: '#555555' }}>→ {p.name}</span>
-                          <span style={{ fontSize: '9px', color: '#222222' }}>{p.meta}</span>
+                          <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.7)' }}>→ {p.name}</span>
+                          <span style={{ fontSize: '9px', color: 'rgba(255,255,255,0.35)' }}>{p.meta}</span>
                         </div>
                       ))}
                     </div>
@@ -571,10 +575,10 @@ export default function Hero() {
 
                     {/* Gap */}
                     <div style={{ marginBottom: '18px' }}>
-                      <p style={{ fontSize: '9px', color: '#2a2a2a', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '8px' }}>
+                      <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '8px' }}>
                         THE GAP
                       </p>
-                      <p style={{ fontSize: '11px', color: '#484848', lineHeight: 1.75 }}>
+                      <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.65 }}>
                         No tool combines live cross-platform scanning with structured pivot suggestions in a single hackathon flow.
                       </p>
                     </div>
@@ -583,7 +587,7 @@ export default function Hero() {
 
                     {/* Pivots */}
                     <div style={{ marginBottom: '22px' }}>
-                      <p style={{ fontSize: '9px', color: '#2a2a2a', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '10px' }}>
+                      <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '10px' }}>
                         PIVOT SUGGESTIONS
                       </p>
                       {[
@@ -592,8 +596,8 @@ export default function Hero() {
                         'Expand beyond hackathons to early MVPs',
                       ].map((pivot, i) => (
                         <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '6px', alignItems: 'flex-start' }}>
-                          <span style={{ fontSize: '10px', color: '#252525', flexShrink: 0, marginTop: '1px' }}>→</span>
-                          <span style={{ fontSize: '11px', color: '#484848', lineHeight: 1.65 }}>{pivot}</span>
+                          <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.35)', flexShrink: 0, marginTop: '1px' }}>→</span>
+                          <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.65 }}>{pivot}</span>
                         </div>
                       ))}
                     </div>

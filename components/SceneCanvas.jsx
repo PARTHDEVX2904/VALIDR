@@ -74,6 +74,8 @@ function AnimatedBox({ initialPosition, mousePosition }) {
         color="#ffffff"
         opacity={0.9}
         transparent
+        depthTest={true}
+        depthWrite={true}
       />
       <lineSegments>
         <edgesGeometry
@@ -101,7 +103,11 @@ function Scene({ mousePosition }) {
 
   return (
     <>
-      <OrbitControls />
+      <OrbitControls
+        maxDistance={60}
+        minDistance={10}
+        maxPolarAngle={Math.PI / 2.2}
+      />
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
       <Grid
@@ -113,7 +119,8 @@ function Scene({ mousePosition }) {
         sectionSize={3}
         sectionThickness={1}
         sectionColor={[0.5, 0.5, 0.5]}
-        fadeDistance={50}
+        fadeDistance={80}
+        fadeStrength={0.8}
       />
       {initialPositions.map((position, index) => (
         <AnimatedBox key={index} initialPosition={position} mousePosition={mousePosition} />
@@ -129,6 +136,7 @@ export default function SceneCanvas() {
     <Canvas
       shadows
       camera={{ position: [0, 18, 28], fov: 50 }}
+      gl={{ logarithmicDepthBuffer: true }}
       style={{ background: '#000000' }}
       onPointerMove={(e) => {
         if (e.point) {
