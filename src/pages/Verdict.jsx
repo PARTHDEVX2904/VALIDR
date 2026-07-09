@@ -30,7 +30,7 @@ const PURPLE = '#a78bfa';
 
 // Card base — background applied per-card
 const CARD_BASE = {
-  border: '0.5px solid rgba(255,255,255,0.08)',
+  border: '0.5px solid rgba(255,255,255,0.12)',
   borderRadius: '10px',
   padding: '18px 20px',
   fontFamily: MONO,
@@ -38,20 +38,20 @@ const CARD_BASE = {
 
 // Per-card radial gradient backgrounds
 const BG = {
-  originality: 'radial-gradient(circle at 15% 55%, rgba(255,255,255,0.035) 0%, #0a0a0a 65%)',
-  saturation:  'radial-gradient(circle at 22% 38%, rgba(240,168,104,0.11) 0%, #0a0a0a 65%)',
-  similar:     'radial-gradient(circle at 72% 62%, rgba(91,155,217,0.10) 0%, #0a0a0a 65%)',
-  confidence:  'radial-gradient(circle at 50% 78%, rgba(127,224,138,0.09) 0%, #0a0a0a 65%)',
-  pivot:       'radial-gradient(circle at 50% 25%, rgba(167,139,250,0.10) 0%, #0a0a0a 65%)',
-  section:     'radial-gradient(circle at 50% 0%, #131313 0%, #090909 80%)',
+  originality: 'radial-gradient(circle at 15% 55%, rgba(255,255,255,0.035) 0%, #111111 65%)',
+  saturation:  'radial-gradient(circle at 22% 38%, rgba(240,168,104,0.11) 0%, #111111 65%)',
+  similar:     'radial-gradient(circle at 72% 62%, rgba(91,155,217,0.10) 0%, #111111 65%)',
+  confidence:  'radial-gradient(circle at 50% 78%, rgba(127,224,138,0.09) 0%, #111111 65%)',
+  pivot:       'radial-gradient(circle at 50% 25%, rgba(167,139,250,0.10) 0%, #111111 65%)',
+  section:     '#111111',
 };
 
 const LABEL_STYLE = {
   fontFamily: MONO,
-  fontSize: '9px',
+  fontSize: '10px',
   textTransform: 'uppercase',
-  letterSpacing: '0.2em',
-  color: '#282828',
+  letterSpacing: '0.1em',
+  color: 'rgba(255,255,255,0.45)',
   marginBottom: '8px',
 };
 
@@ -66,8 +66,8 @@ function AccentLabel({ text, accent = null }) {
         }} />
       )}
       <p style={{
-        fontFamily: MONO, fontSize: '9px', textTransform: 'uppercase',
-        letterSpacing: '0.2em', color: '#282828', margin: 0,
+        fontFamily: MONO, fontSize: '10px', textTransform: 'uppercase',
+        letterSpacing: '0.1em', color: 'rgba(255,255,255,0.45)', margin: 0,
       }}>
         {text}
       </p>
@@ -78,8 +78,8 @@ function AccentLabel({ text, accent = null }) {
 function SectionLabel({ text }) {
   return (
     <p style={{
-      fontFamily: MONO, fontSize: '9px', textTransform: 'uppercase',
-      letterSpacing: '0.2em', color: '#282828',
+      fontFamily: MONO, fontSize: '10px', textTransform: 'uppercase',
+      letterSpacing: '0.1em', color: 'rgba(255,255,255,0.35)',
       marginBottom: '12px', marginTop: '36px',
     }}>
       — {text}
@@ -142,8 +142,8 @@ function NodeGraph({ count, accentColor = '#5b9bd9' }) {
         <circle key={i} cx={n.x} cy={n.y} r="4"
           fill={accentColor + '22'} stroke={accentColor} strokeWidth="0.8" opacity="0.75" />
       ))}
-      {/* Center: the idea — stays white for contrast */}
-      <circle cx={cx} cy={cy} r="7" fill="#ffffff" />
+      {/* Center: the idea */}
+      <circle cx={cx} cy={cy} r="7" fill={accentColor} />
     </svg>
   );
 }
@@ -261,13 +261,13 @@ export default function Verdict() {
         .v-btn-secondary {
           flex: 1; height: 48px;
           background: transparent; color: #ffffff;
-          border: 1px solid #1a1a1a; border-radius: 8px;
+          border: 0.5px solid rgba(255,255,255,0.25); border-radius: 8px;
           font-family: ${MONO}; font-size: 13px; font-weight: 700;
           cursor: pointer;
           transition: border-color 0.15s ease, transform 0.15s cubic-bezier(0.34,1.56,0.64,1);
         }
-        .v-btn-secondary:hover { border-color: #333333; transform: scale(1.01); }
-        .v-btn-secondary:focus-visible { outline: 1px solid #555555; outline-offset: 3px; }
+        .v-btn-secondary:hover { border-color: rgba(255,255,255,0.45); transform: scale(1.01); }
+        .v-btn-secondary:focus-visible { outline: 1px solid rgba(255,255,255,0.4); outline-offset: 3px; }
         .v-btn-secondary:active { transform: scale(0.98); }
 
         .v-grid {
@@ -298,9 +298,9 @@ export default function Verdict() {
 
           {/* Page header */}
           <div style={{ marginBottom: '24px', ...fadeUp(0) }}>
-            <p style={{ ...LABEL_STYLE, marginBottom: '8px', color: '#242424' }}>— Verdict</p>
+            <p style={{ fontFamily: MONO, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }}>— Verdict</p>
             <h1 style={{
-              fontFamily: MONO, fontSize: '26px', fontWeight: 700,
+              fontFamily: MONO, fontSize: '32px', fontWeight: 700,
               color: '#ffffff', lineHeight: 1.1, letterSpacing: '-0.02em',
             }}>
               Idea analyzed.
@@ -322,14 +322,14 @@ export default function Verdict() {
                 <div style={{ flexShrink: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '5px' }}>
                     <span style={{
-                      fontFamily: MONO, fontSize: '68px', fontWeight: 700,
+                      fontFamily: MONO, fontSize: '52px', fontWeight: 700,
                       color: '#ffffff', lineHeight: 0.88,
                     }}>
                       {displayScore}
                     </span>
-                    <span style={{ fontFamily: MONO, fontSize: '18px', color: '#242424', fontWeight: 400 }}>/100</span>
+                    <span style={{ fontFamily: MONO, fontSize: '24px', color: 'rgba(255,255,255,0.3)', fontWeight: 400 }}>/100</span>
                   </div>
-                  <p style={{ fontFamily: MONO, fontSize: '10px', color: '#303030', marginTop: '10px', lineHeight: 1.5 }}>
+                  <p style={{ fontFamily: MONO, fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginTop: '10px', lineHeight: 1.5 }}>
                     vs {similarProjects.length} similar project{similarProjects.length !== 1 ? 's' : ''} found
                   </p>
                 </div>
@@ -344,14 +344,14 @@ export default function Verdict() {
             <div style={{ ...CARD_BASE, background: BG.saturation, display: 'flex', flexDirection: 'column' }}>
               <AccentLabel text="Saturation" accent={AMBER} />
               <span style={{
-                fontFamily: MONO, fontSize: '30px', fontWeight: 700,
-                color: '#ffffff', textTransform: 'uppercase', lineHeight: 1,
+                fontFamily: MONO, fontSize: '28px', fontWeight: 700,
+                color: '#f0a868', textTransform: 'uppercase', lineHeight: 1,
               }}>
                 {saturationLevel}
               </span>
               <div style={{ marginTop: 'auto', paddingTop: '14px' }}>
                 <SatGauge filled={satFilled} accentColor={AMBER} />
-                <p style={{ fontFamily: MONO, fontSize: '9px', color: '#242424', marginTop: '7px' }}>
+                <p style={{ fontFamily: MONO, fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginTop: '7px' }}>
                   {Math.round(satFrac * 100)}% of adjacent niches occupied
                 </p>
               </div>
@@ -360,7 +360,7 @@ export default function Verdict() {
             {/* Similar Projects — blue accent node graph */}
             <div style={{ ...CARD_BASE, background: BG.similar }}>
               <AccentLabel text="Similar Found" accent={BLUE} />
-              <span style={{ fontFamily: MONO, fontSize: '38px', fontWeight: 700, color: '#ffffff', lineHeight: 1 }}>
+              <span style={{ fontFamily: MONO, fontSize: '36px', fontWeight: 700, color: '#5b9bd9', lineHeight: 1 }}>
                 {similarProjects.length}
               </span>
               <NodeGraph count={similarProjects.length} accentColor={BLUE} />
@@ -375,8 +375,8 @@ export default function Verdict() {
                     background: GREEN, flexShrink: 0, boxShadow: `0 0 5px ${GREEN}99`,
                   }} />
                   <p style={{
-                    fontFamily: MONO, fontSize: '9px', textTransform: 'uppercase',
-                    letterSpacing: '0.2em', color: '#282828', margin: 0,
+                    fontFamily: MONO, fontSize: '10px', textTransform: 'uppercase',
+                    letterSpacing: '0.1em', color: 'rgba(255,255,255,0.45)', margin: 0,
                   }}>Confidence</p>
                 </div>
                 <span style={{
@@ -390,9 +390,9 @@ export default function Verdict() {
                   LIVE
                 </span>
               </div>
-              <span style={{ fontFamily: MONO, fontSize: '30px', fontWeight: 700, color: '#ffffff', lineHeight: 1 }}>94%</span>
+              <span style={{ fontFamily: MONO, fontSize: '32px', fontWeight: 700, color: '#7fe08a', lineHeight: 1 }}>94%</span>
               <ConfidenceSparkline />
-              <p style={{ fontFamily: MONO, fontSize: '9px', color: '#242424', marginTop: '4px' }}>
+              <p style={{ fontFamily: MONO, fontSize: '11px', color: 'rgba(255,255,255,0.35)', marginTop: '4px' }}>
                 3 sources · ~8s scan
               </p>
             </div>
@@ -400,11 +400,11 @@ export default function Verdict() {
             {/* Pivot Potential — purple accent trend */}
             <div style={{ ...CARD_BASE, background: BG.pivot }}>
               <AccentLabel text="Pivot Potential" accent={PURPLE} />
-              <span style={{ fontFamily: MONO, fontSize: '30px', fontWeight: 700, color: '#ffffff', lineHeight: 1 }}>
+              <span style={{ fontFamily: MONO, fontSize: '28px', fontWeight: 700, color: '#a78bfa', lineHeight: 1 }}>
                 {pivotPotential}
               </span>
               <TrendLine score={originalityScore} accentColor={PURPLE} />
-              <p style={{ fontFamily: MONO, fontSize: '9px', color: '#242424', marginTop: '4px' }}>
+              <p style={{ fontFamily: MONO, fontSize: '11px', color: 'rgba(255,255,255,0.35)', marginTop: '4px' }}>
                 {pivots.length} directions identified
               </p>
             </div>
@@ -420,16 +420,16 @@ export default function Verdict() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  background: BG.section,
-                  border: '0.5px solid rgba(255,255,255,0.06)',
+                  background: '#111111',
+                  border: '0.5px solid rgba(255,255,255,0.1)',
                   borderRadius: '8px',
                   padding: '12px 16px',
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '11px' }}>
-                    <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#222222', flexShrink: 0 }} />
-                    <span style={{ fontFamily: MONO, fontSize: '13px', color: '#ffffff' }}>{project.name}</span>
+                    <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#a78bfa', flexShrink: 0 }} />
+                    <span style={{ fontFamily: MONO, fontSize: '14px', color: '#ffffff' }}>{project.name}</span>
                   </div>
-                  <span style={{ fontFamily: MONO, fontSize: '11px', color: '#272727' }}>
+                  <span style={{ fontFamily: MONO, fontSize: '12px', color: 'rgba(255,255,255,0.35)' }}>
                     {project.platform} · {project.year}
                   </span>
                 </div>
@@ -441,13 +441,13 @@ export default function Verdict() {
           <div style={fadeUp(0.22)}>
             <SectionLabel text="The Gap" />
             <div style={{
-              background: BG.section,
-              border: '0.5px solid rgba(255,255,255,0.06)',
-              borderLeft: '2px solid #2a2a2a',
+              background: '#111111',
+              border: '0.5px solid rgba(255,255,255,0.1)',
+              borderLeft: '2px solid rgba(255,255,255,0.15)',
               borderRadius: '8px',
               padding: '18px 20px',
             }}>
-              <p style={{ fontFamily: MONO, fontSize: '13px', color: '#5a5a5a', lineHeight: 1.75 }}>
+              <p style={{ fontFamily: MONO, fontSize: '14px', color: 'rgba(255,255,255,0.8)', lineHeight: 1.75 }}>
                 {gap}
               </p>
             </div>
@@ -462,16 +462,16 @@ export default function Verdict() {
                   display: 'flex',
                   alignItems: 'flex-start',
                   gap: '14px',
-                  background: BG.section,
-                  border: '0.5px solid rgba(255,255,255,0.06)',
+                  background: '#111111',
+                  border: '0.5px solid rgba(255,255,255,0.1)',
                   borderRadius: '8px',
                   padding: '14px 16px',
                 }}>
                   <div style={{
                     flexShrink: 0, width: '22px', height: '22px',
-                    border: '1px solid #1a1a1a', borderRadius: '50%',
+                    border: '1px solid rgba(255,255,255,0.15)', borderRadius: '50%',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontFamily: MONO, fontSize: '10px', color: '#282828',
+                    fontFamily: MONO, fontSize: '10px', color: 'rgba(255,255,255,0.4)',
                     marginTop: '1px',
                   }}>
                     {i + 1}
@@ -479,6 +479,107 @@ export default function Verdict() {
                   <p style={{ fontFamily: MONO, fontSize: '13px', color: '#ffffff', lineHeight: 1.6 }}>
                     {pivot}
                   </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Tech Stack Recommendation ── */}
+          <div style={fadeUp(0.36)}>
+            <p style={{ fontFamily: MONO, fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.35)', marginBottom: '16px', marginTop: '36px' }}>— RECOMMENDED STACK</p>
+            <div style={{ background: '#111111', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '24px', marginBottom: '12px' }}>
+              <p style={{ fontFamily: MONO, fontSize: '16px', fontWeight: 700, color: '#ffffff', marginBottom: '16px' }}>Build this with:</p>
+              {[
+                { color: '#5b9bd9', name: 'React + Vite', reason: 'Fast setup, component reuse, perfect for 24hr hackathon builds' },
+                { color: '#7fe08a', name: 'Node.js + Express', reason: 'Lightweight backend, easy API routes, huge community support' },
+                { color: '#a78bfa', name: 'Supabase', reason: 'Instant database + auth, no DevOps overhead during the hackathon' },
+              ].map((item, i, arr) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 0', borderBottom: i < arr.length - 1 ? '0.5px solid rgba(255,255,255,0.06)' : 'none' }}>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: item.color, flexShrink: 0 }} />
+                  <span style={{ fontFamily: MONO, fontSize: '13px', color: '#ffffff', minWidth: '140px', flexShrink: 0 }}>{item.name}</span>
+                  <span style={{ fontFamily: MONO, fontSize: '11px', color: 'rgba(255,255,255,0.45)', lineHeight: 1.5 }}>{item.reason}</span>
+                </div>
+              ))}
+              <div style={{ fontFamily: MONO, fontSize: '11px', color: '#f0a868', marginTop: '14px', padding: '10px 14px', background: 'rgba(240,168,104,0.08)', borderRadius: '6px', borderLeft: '2px solid #f0a868', lineHeight: 1.6 }}>
+                ⚠ Avoid blockchain for this idea — adds complexity without solving the core problem.
+              </div>
+            </div>
+          </div>
+
+          {/* ── Idea Strength Report ── */}
+          <div style={fadeUp(0.38)}>
+            <p style={{ fontFamily: MONO, fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.35)', marginBottom: '16px', marginTop: '36px' }}>— IDEA STRENGTH REPORT</p>
+            <div style={{ background: '#111111', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '24px', marginBottom: '12px' }}>
+              <p style={{ fontFamily: MONO, fontSize: '16px', fontWeight: 700, color: '#ffffff', marginBottom: '20px' }}>How your idea scores across 5 dimensions</p>
+              {[
+                { name: 'Problem Clarity', score: 78, color: '#7fe08a', verdict: 'Well-defined problem with a clear target user' },
+                { name: 'Market Timing', score: 65, color: '#5b9bd9', verdict: 'AI tools are hot right now but space is crowding fast' },
+                { name: 'Technical Feasibility', score: 82, color: '#a78bfa', verdict: 'Buildable in 24hrs with the right stack' },
+                { name: 'Hackathon Fit', score: 71, color: '#f0a868', verdict: 'Good demo potential, needs a sharp pivot angle' },
+                { name: 'Post-Hackathon Potential', score: 58, color: '#5b9bd9', verdict: 'Real market exists but competition is strong' },
+              ].map((item, i, arr) => (
+                <div key={i} style={{ padding: '14px 0', borderBottom: i < arr.length - 1 ? '0.5px solid rgba(255,255,255,0.06)' : 'none' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                    <div>
+                      <p style={{ fontFamily: MONO, fontSize: '13px', color: '#ffffff', margin: '0 0 3px' }}>{item.name}</p>
+                      <p style={{ fontFamily: MONO, fontSize: '12px', color: 'rgba(255,255,255,0.45)', margin: 0 }}>{item.verdict}</p>
+                    </div>
+                    <span style={{ fontFamily: MONO, fontSize: '13px', fontWeight: 700, color: item.color, minWidth: '32px', textAlign: 'right', flexShrink: 0 }}>{item.score}</span>
+                  </div>
+                  <div style={{ width: '100%', height: '4px', background: 'rgba(255,255,255,0.06)', borderRadius: '99px' }}>
+                    <div style={{ width: `${item.score}%`, height: '4px', background: item.color, borderRadius: '99px' }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Winner Intelligence ── */}
+          <div style={fadeUp(0.40)}>
+            <p style={{ fontFamily: MONO, fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.35)', marginBottom: '16px', marginTop: '36px' }}>— WINNER INTELLIGENCE</p>
+            <div style={{ background: '#111111', border: '0.5px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '24px', marginBottom: '12px' }}>
+              <p style={{ fontFamily: MONO, fontSize: '16px', fontWeight: 700, color: '#ffffff', marginBottom: '16px' }}>What past winners in this category did differently</p>
+              {[
+                "They narrowed scope to one specific user type instead of building for everyone — 'students preparing for UPSC' not just 'students'",
+                "They led with a live demo showing real data, not a mockup — judges responded to working product over slides",
+                "They quantified the problem in the pitch: '2.3M students prepare for competitive exams with zero structured AI support'",
+              ].map((insight, i, arr) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', background: 'rgba(255,255,255,0.03)', border: '0.5px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '14px 16px', marginBottom: i < arr.length - 1 ? '8px' : 0 }}>
+                  <span style={{ fontSize: '14px', color: '#f0a868', flexShrink: 0, lineHeight: 1.6 }}>★</span>
+                  <p style={{ fontFamily: MONO, fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.6, margin: 0 }}>{insight}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Your Angle ── */}
+          <div style={fadeUp(0.42)}>
+            <p style={{ fontFamily: MONO, fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.35)', marginBottom: '16px', marginTop: '36px' }}>— YOUR ANGLE</p>
+            <div style={{ borderLeft: '3px solid #7fe08a', background: 'rgba(127,224,138,0.04)', borderRadius: '0 12px 12px 0', padding: '20px 24px', marginBottom: '12px' }}>
+              <p style={{ fontFamily: MONO, fontSize: '11px', color: 'rgba(255,255,255,0.45)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '10px' }}>The gap nobody has filled:</p>
+              <p style={{ fontFamily: MONO, fontSize: '14px', color: '#ffffff', lineHeight: 1.75, fontWeight: 400, marginBottom: '16px' }}>
+                Build this specifically for students preparing for competitive exams like UPSC or JEE — not a general AI study tool. Focus on exam anxiety management and structured answer writing, not flashcards. Nobody has combined AI coaching with mental performance tracking for this audience. That's your unfilled gap.
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontFamily: MONO, fontSize: '11px', color: 'rgba(255,255,255,0.35)' }}>Confidence in this angle:</span>
+                <span style={{ fontFamily: MONO, fontSize: '10px', fontWeight: 700, color: '#000000', background: '#7fe08a', padding: '2px 8px', borderRadius: '99px' }}>HIGH — 91%</span>
+              </div>
+            </div>
+          </div>
+
+          {/* ── Next Steps ── */}
+          <div style={fadeUp(0.44)}>
+            <p style={{ fontFamily: MONO, fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.35)', marginBottom: '16px', marginTop: '36px' }}>— NEXT STEPS</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '12px' }}>
+              {[
+                { num: '01', color: '#7fe08a', bg: 'rgba(127,224,138,0.04)', title: 'Lock your idea', desc: 'Timestamp it now so you have proof of ideation before the hackathon.' },
+                { num: '02', color: '#5b9bd9', bg: 'rgba(91,155,217,0.04)', title: 'Refine your pivot', desc: 'Take angle #1 from the pivot suggestions and sharpen it into a one-liner before you build.' },
+                { num: '03', color: '#a78bfa', bg: 'rgba(167,139,250,0.04)', title: 'Start building', desc: 'Use the recommended stack. Scope to the gap angle. Build the demo first, polish later.' },
+              ].map((step) => (
+                <div key={step.num} style={{ background: step.bg, border: `0.5px solid ${step.color}`, borderRadius: '12px', padding: '20px' }}>
+                  <p style={{ fontFamily: MONO, fontSize: '11px', fontWeight: 700, color: step.color, marginBottom: '8px' }}>{step.num}</p>
+                  <p style={{ fontFamily: MONO, fontSize: '13px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>{step.title}</p>
+                  <p style={{ fontFamily: MONO, fontSize: '11px', color: 'rgba(255,255,255,0.45)', lineHeight: 1.6, margin: 0 }}>{step.desc}</p>
                 </div>
               ))}
             </div>
