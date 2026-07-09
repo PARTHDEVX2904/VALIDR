@@ -73,6 +73,13 @@ const styles = `
   }
 `;
 
+// Accent palette — matches src/pages/Verdict.jsx exactly, so this mock
+// preview reads as the same product, not a differently-styled mockup.
+const AMBER = '#f0a868';
+const BLUE = '#5b9bd9';
+const GREEN = '#7fe08a';
+const PURPLE = '#a78bfa';
+
 const STEPS = [
   {
     num: '01',
@@ -109,7 +116,9 @@ export default function Hero() {
   const [phase, setPhase] = useState('intro');
   const [showWorkflow, setShowWorkflow] = useState(false);
   const [stepsVisible, setStepsVisible] = useState(false);
+  const [activeStep, setActiveStep] = useState(0);
   const workflowRef = useRef(null);
+  const stepNodeRefs = useRef([]);
 
   useEffect(() => {
     const t1 = setTimeout(() => setPhase('transition'), 2000);
@@ -123,6 +132,21 @@ export default function Hero() {
       { threshold: 0.08 }
     );
     if (workflowRef.current) observer.observe(workflowRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveStep(Number(entry.target.dataset.stepIndex));
+          }
+        });
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+    );
+    stepNodeRefs.current.forEach((el) => el && observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
@@ -383,26 +407,35 @@ export default function Hero() {
                 background: 'linear-gradient(to bottom, #181818 0%, #181818 80%, transparent 100%)',
               }} />
 
-              {STEPS.map((step, i) => (
-                <div key={step.num} style={{
-                  display: 'flex',
-                  gap: '28px',
-                  marginBottom: i < STEPS.length - 1 ? '52px' : 0,
-                  ...stepFade(0.1 + i * 0.12),
-                }}>
+              {STEPS.map((step, i) => {
+                const isActive = activeStep === i;
+                return (
+                <div
+                  key={step.num}
+                  ref={(el) => (stepNodeRefs.current[i] = el)}
+                  data-step-index={i}
+                  style={{
+                    display: 'flex',
+                    gap: '28px',
+                    marginBottom: i < STEPS.length - 1 ? '52px' : 0,
+                    ...stepFade(0.1 + i * 0.12),
+                  }}>
                   {/* Node circle */}
                   <div style={{
                     flexShrink: 0,
                     width: '40px',
                     height: '40px',
                     borderRadius: '50%',
-                    border: `1px solid ${step.live ? 'rgba(127,224,138,0.15)' : 'rgba(255,255,255,0.3)'}`,
+                    border: `1px solid ${isActive ? 'rgba(127,224,138,0.9)' : step.live ? 'rgba(127,224,138,0.15)' : 'rgba(255,255,255,0.3)'}`,
                     background: '#060606',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     position: 'relative',
                     zIndex: 1,
+                    boxShadow: isActive ? '0 0 14px 2px rgba(127,224,138,0.55), 0 0 30px 6px rgba(127,224,138,0.25)' : 'none',
+                    transform: isActive ? 'scale(1.08)' : 'scale(1)',
+                    transition: 'border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease',
                   }}>
                     {step.live && (
                       <div style={{
@@ -416,7 +449,7 @@ export default function Hero() {
                       fontFamily: "'Space Mono', monospace",
                       fontSize: '10px',
                       fontWeight: 700,
-                      color: step.live ? '#7fe08a' : '#ffffff',
+                      color: step.live || isActive ? '#7fe08a' : '#ffffff',
                       letterSpacing: '0.04em',
                       position: 'relative',
                     }}>
@@ -425,14 +458,16 @@ export default function Hero() {
                   </div>
 
                   {/* Step content */}
-                  <div style={{ paddingTop: '8px' }}>
+                  <div style={{ paddingTop: '8px', opacity: isActive ? 1 : 0.5, transition: 'opacity 0.35s ease' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px', flexWrap: 'wrap' }}>
                       <h3 style={{
                         fontFamily: "'Space Mono', monospace",
                         fontSize: '15px',
                         fontWeight: 700,
-                        color: '#ffffff',
+                        color: isActive ? '#7fe08a' : '#ffffff',
                         letterSpacing: '-0.01em',
+                        textShadow: isActive ? '0 0 10px rgba(127,224,138,0.5)' : 'none',
+                        transition: 'color 0.35s ease, text-shadow 0.35s ease',
                       }}>
                         {step.title}
                       </h3>
@@ -491,7 +526,8 @@ export default function Hero() {
                     )}
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Right — mock verdict output */}
@@ -514,8 +550,8 @@ export default function Hero() {
                     background: '#040404',
                   }}>
                     <div style={{ display: 'flex', gap: '6px' }}>
-                      {[0, 1, 2].map(d => (
-                        <div key={d} style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#161616' }} />
+                      {['#e0605a', AMBER, GREEN].map((c, d) => (
+                        <div key={d} style={{ width: '9px', height: '9px', borderRadius: '50%', background: c }} />
                       ))}
                     </div>
                     <span style={{ fontSize: '9px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.12em' }}>VALIDR — RESULT</span>
@@ -527,23 +563,27 @@ export default function Hero() {
 
                     {/* Score row */}
                     <div style={{ marginBottom: '20px' }}>
-                      <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '10px' }}>
-                        ORIGINALITY SCORE
-                      </p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
+                        <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: GREEN, boxShadow: `0 0 5px ${GREEN}99`, flexShrink: 0 }} />
+                        <p style={{ fontSize: '10px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.18em', textTransform: 'uppercase', margin: 0 }}>
+                          ORIGINALITY SCORE
+                        </p>
+                      </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                         <div style={{ flex: 1, height: '3px', background: '#101010', borderRadius: '2px', overflow: 'hidden' }}>
                           <div style={{
                             width: '84%',
                             height: '100%',
-                            background: 'linear-gradient(to right, #1e1e1e, #ffffff)',
+                            background: `linear-gradient(to right, rgba(127,224,138,0.25), ${GREEN})`,
                             borderRadius: '2px',
+                            boxShadow: '0 0 8px rgba(127,224,138,0.4)',
                           }} />
                         </div>
                         <span style={{ fontSize: '22px', fontWeight: 700, color: '#ffffff', minWidth: '54px', textAlign: 'right' }}>
                           84 / 100
                         </span>
                       </div>
-                      <p style={{ fontSize: '12px', color: '#7fe08a', marginTop: '7px' }}>
+                      <p style={{ fontSize: '12px', color: GREEN, marginTop: '7px' }}>
                         High originality · Low saturation
                       </p>
                     </div>
@@ -552,9 +592,18 @@ export default function Hero() {
 
                     {/* Similar projects */}
                     <div style={{ marginBottom: '18px' }}>
-                      <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '10px' }}>
-                        SIMILAR PROJECTS FOUND: 2
-                      </p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
+                        <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: BLUE, boxShadow: `0 0 5px ${BLUE}99`, flexShrink: 0 }} />
+                        <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.18em', textTransform: 'uppercase', margin: 0 }}>
+                          SIMILAR PROJECTS FOUND
+                        </p>
+                        <span style={{
+                          fontSize: '9px', fontWeight: 700, color: BLUE, background: 'rgba(91,155,217,0.12)',
+                          padding: '1px 7px', borderRadius: '9999px', letterSpacing: '0.02em',
+                        }}>
+                          2
+                        </span>
+                      </div>
                       {[
                         { name: 'HackCompare', meta: 'Devpost · 2023' },
                         { name: 'IdeaCheck.io', meta: 'Product Hunt · 2022' },
@@ -587,16 +636,19 @@ export default function Hero() {
 
                     {/* Pivots */}
                     <div style={{ marginBottom: '22px' }}>
-                      <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '10px' }}>
-                        PIVOT SUGGESTIONS
-                      </p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
+                        <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: PURPLE, boxShadow: `0 0 5px ${PURPLE}99`, flexShrink: 0 }} />
+                        <p style={{ fontSize: '9px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.18em', textTransform: 'uppercase', margin: 0 }}>
+                          PIVOT SUGGESTIONS
+                        </p>
+                      </div>
                       {[
                         'Target solo builders, not teams',
                         'Add async collaboration review',
                         'Expand beyond hackathons to early MVPs',
                       ].map((pivot, i) => (
                         <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '6px', alignItems: 'flex-start' }}>
-                          <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.35)', flexShrink: 0, marginTop: '1px' }}>→</span>
+                          <span style={{ fontSize: '10px', color: PURPLE, flexShrink: 0, marginTop: '1px' }}>→</span>
                           <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.65 }}>{pivot}</span>
                         </div>
                       ))}
@@ -605,16 +657,16 @@ export default function Hero() {
                     {/* Idea lock */}
                     <div style={{
                       padding: '10px 14px',
-                      border: '1px solid #141414',
+                      border: `1px solid rgba(127,224,138,0.15)`,
                       borderRadius: '6px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
                     }}>
-                      <span style={{ fontSize: '10px', color: '#222222' }}>Lock this idea with timestamp</span>
+                      <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.55)' }}>Lock this idea with timestamp</span>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                        <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#1a1a1a' }} />
-                        <span style={{ fontSize: '8px', color: '#1e1e1e', letterSpacing: '0.12em' }}>LOCKED</span>
+                        <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: GREEN, boxShadow: `0 0 5px ${GREEN}` }} />
+                        <span style={{ fontSize: '8px', color: GREEN, letterSpacing: '0.12em' }}>LOCKED</span>
                       </div>
                     </div>
                   </div>
